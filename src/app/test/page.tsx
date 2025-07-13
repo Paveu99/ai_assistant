@@ -1,5 +1,3 @@
 export default function Test() {
-    return (
-        <h1>Hello World 2!</h1>
-    );
+    return <h1>Hello World 2!</h1>;
 }
