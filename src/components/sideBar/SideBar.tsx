@@ -6,6 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Link from 'next/link';
 import { LightDarkSwitch } from '../lightDarkSwitch/LightDarkSwitch';
 import { useTheme } from '@/context/ThemeContext';
+import Image from 'next/image';
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -32,15 +33,24 @@ export default function SideBar() {
                 <SettingsIcon />
             </button>
             <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-                <List sx={{ width: 250 }}>
-                    {navLinks.map(({ href, label }) => (
-                        <ListItem key={href} onClick={() => setOpen(false)}>
-                            <Link href={href} >
-                                <ListItemText primary={label} />
-                            </Link>
-                        </ListItem>
-                    ))}
-                </List>
+                <div className="w-[250px] h-full flex flex-col justify-between">
+                    <List>
+                        {navLinks.map(({ href, label }) => (
+                            <ListItem key={href} onClick={() => setOpen(false)}>
+                                <Link href={href} >
+                                    <ListItemText primary={label} />
+                                </Link>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Image
+                        src="/AI-Assistant-For-Developers.jpg"
+                        alt="AI Assistant Logo"
+                        width={150}
+                        height={75}
+                        className='object-contain my-4 mx-auto rounded-2xl'
+                    />
+                </div>
             </Drawer>
             <Drawer anchor='right' open={open2} onClose={() => setOpen2(false)}>
                 <div className="w-[250px] h-full flex flex-col justify-between">
