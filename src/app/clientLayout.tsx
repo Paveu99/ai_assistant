@@ -12,6 +12,7 @@ import {
     createGlobalStyle,
 } from 'styled-components';
 import SideBar from '@/components/sideBar/SideBar';
+import Image from 'next/image';
 
 const light = {
     colors: {
@@ -89,11 +90,20 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <MuiThemeProvider theme={muiTheme}>
             <StyledThemeProvider theme={styledTheme}>
                 <GlobalStyle />
-                <header className="bg-blue-600 text-white px-4 py-3 flex items-center">
-                    <h1 className="flex-grow">AI Assistant for Developers</h1>
+                <header className="fixed top-0 left-0 right-0 z-50 bg-blue-600 text-white px-4 py-3 flex items-center">
+                    <Image
+                        src="/AI-Assistant-For-Developers.jpg"
+                        alt="AI Assistant Logo"
+                        width={40}
+                        height={20}
+                        className='rounded-2xl'
+                    />
+                    <h1 className="mx-2 flex-grow font-semibold">AI Assistant for Developers</h1>
                     <SideBar />
                 </header>
-                {children}
+                <main className='pt-16'>
+                    {children}
+                </main>
             </StyledThemeProvider>
         </MuiThemeProvider>
     );
