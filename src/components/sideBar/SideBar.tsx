@@ -33,14 +33,33 @@ export default function SideBar() {
                 <SettingsIcon />
             </button>
             <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-                <div className="w-[250px] h-full flex flex-col justify-between">
-                    <List>
+                <div className="w-[250px] h-full flex flex-col justify-between items-center">
+                    <List className='w-[220px]'>
                         {navLinks.map(({ href, label }) => (
-                            <ListItem key={href} onClick={() => setOpen(false)}>
-                                <Link href={href} >
-                                    <ListItemText primary={label} />
+                            <ListItem
+                                key={href}
+                                onClick={() => setOpen(false)}
+                                sx={{
+                                    border: "1px solid #e0e0e0",
+                                    borderRadius: "12px",
+                                    px: 2,
+                                    py: 1.5,
+                                    mb: 1.5,
+                                    transition: "all 0.2s ease-in-out",
+                                    '&:hover': {
+                                        backgroundColor: "#e3f2fd",
+                                        transform: "scale(1.02)",
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Link href={href}>
+                                    <ListItemText
+                                        primary={label}
+                                    />
                                 </Link>
                             </ListItem>
+
                         ))}
                     </List>
                     <Image
