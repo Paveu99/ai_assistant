@@ -8,7 +8,7 @@ export default async function Home() {
     const posts = await prisma.post.findMany();
 
     return (
-        <div className="text-center pt-12">
+        <div className="text-center">
             <h1 className="text-3xl font-bold">Hello World!</h1>
             <Link href="/test">Go to test</Link>
             <ul>
