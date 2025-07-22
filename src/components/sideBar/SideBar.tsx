@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { LightDarkSwitch } from '../lightDarkSwitch/LightDarkSwitch';
 import { useTheme } from '@/context/ThemeContext';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -21,6 +22,7 @@ export default function SideBar() {
     const [open, setOpen] = useState<boolean>(false);
     const [open2, setOpen2] = useState<boolean>(false);
     const { currentTheme, toggleTheme } = useTheme();
+    const pathname = usePathname();
 
     return (
         <>
@@ -46,6 +48,8 @@ export default function SideBar() {
                                     py: 1.5,
                                     mb: 1.5,
                                     transition: "all 0.2s ease-in-out",
+                                    backgroundColor: pathname === href ? "#bbdefb" : "transparent",
+                                    transform: pathname === href ? "scale(1.02)" : "none",
                                     '&:hover': {
                                         backgroundColor: "#e3f2fd",
                                         transform: "scale(1.02)",
