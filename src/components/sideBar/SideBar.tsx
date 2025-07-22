@@ -36,11 +36,13 @@ export default function SideBar() {
             </button>
             <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
                 <div className="w-[250px] h-full flex flex-col justify-between items-center">
-                    <List className='w-[220px]'>
+                    <List className="w-[220px]">
                         {navLinks.map(({ href, label }) => (
                             <ListItem
                                 key={href}
                                 onClick={() => setOpen(false)}
+                                component={Link}
+                                href={href}
                                 sx={{
                                     border: "1px solid #e0e0e0",
                                     borderRadius: "12px",
@@ -49,23 +51,21 @@ export default function SideBar() {
                                     mb: 1.5,
                                     transition: "all 0.2s ease-in-out",
                                     backgroundColor: pathname === href ? "#bbdefb" : "transparent",
-                                    transform: pathname === href ? "scale(1.02)" : "none",
+                                    transform: pathname === href ? "scale(1.05)" : "none",
                                     '&:hover': {
                                         backgroundColor: "#e3f2fd",
-                                        transform: "scale(1.02)",
+                                        transform: "scale(1.05)",
                                         cursor: "pointer",
                                     },
+                                    textDecoration: "none",
+                                    color: "inherit",
                                 }}
                             >
-                                <Link href={href}>
-                                    <ListItemText
-                                        primary={label}
-                                    />
-                                </Link>
+                                <ListItemText primary={label} />
                             </ListItem>
-
                         ))}
                     </List>
+
                     <Image
                         src="/AI-Assistant-For-Developers.jpg"
                         alt="AI Assistant Logo"
