@@ -4,6 +4,7 @@ import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@/context/ThemeContext';
 import ClientLayout from './clientLayout';
+import { QueryProvider } from '@/lib/query-providers';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -30,9 +31,11 @@ export default function RootLayout({
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
                 <AppRouterCacheProvider>
                     <ThemeProvider>
-                        <ClientLayout>
-                            {children}
-                        </ClientLayout>
+                        <QueryProvider>
+                            <ClientLayout>
+                                {children}
+                            </ClientLayout>
+                        </QueryProvider>
                     </ThemeProvider>
                 </AppRouterCacheProvider>
             </body>
