@@ -2,17 +2,11 @@
 
 import { ReactNode, useMemo } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import {
-    ThemeProvider as MuiThemeProvider,
-    createTheme,
-    PaletteMode,
-} from '@mui/material/styles';
-import {
-    ThemeProvider as StyledThemeProvider,
-    createGlobalStyle,
-} from 'styled-components';
-import SideBar from '@/components/sideBar/SideBar';
+import { ThemeProvider as MuiThemeProvider, createTheme, PaletteMode } from '@mui/material/styles';
+import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
+import SideBar from '@/components/sideBar/LeftSideBar';
 import Image from 'next/image';
+import { TopBar } from '@/components/topBar/TopBar';
 
 const light = {
     colors: {
@@ -67,15 +61,15 @@ const getMuiTheme = (theme: typeof light | typeof dark, mode: PaletteMode) =>
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${(props) => props.theme.colors.primaryBackground};
-    color: ${(props) => props.theme.colors.primaryTextColor};
+    background-color: ${props => props.theme.colors.primaryBackground};
+    color: ${props => props.theme.colors.primaryTextColor};
     transition: background-color 0.3s, color 0.3s;
   }
 
   [data-theme] body {
     transition: none !important;
   }
-`
+`;
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
     const { currentTheme } = useTheme();
@@ -90,20 +84,8 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <MuiThemeProvider theme={muiTheme}>
             <StyledThemeProvider theme={styledTheme}>
                 <GlobalStyle />
-                <header className="fixed top-0 left-0 right-0 z-50 bg-blue-600 text-white px-4 py-3 flex items-center">
-                    <Image
-                        src="/AI-Assistant-For-Developers.jpg"
-                        alt="AI Assistant Logo"
-                        width={40}
-                        height={20}
-                        className='rounded-2xl'
-                    />
-                    <h1 className="mx-2 flex-grow font-semibold">AI Assistant for Developers</h1>
-                    <SideBar />
-                </header>
-                <main className='pt-16'>
-                    {children}
-                </main>
+                <TopBar />
+                <main className="pt-16">{children}</main>
             </StyledThemeProvider>
         </MuiThemeProvider>
     );
