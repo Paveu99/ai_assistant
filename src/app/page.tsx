@@ -30,7 +30,7 @@ export default async function Home() {
             >
                 <input name="title" className="border-2" type="text" />
                 <input name="content" className="border-2" type="text" />
-                <Button type="submit" color='primary'>
+                <Button type="submit" color="primary">
                     KLICK
                 </Button>
             </form>

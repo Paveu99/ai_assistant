@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useToggleTheme } from '@/hooks/useToggleTheme';
 import { createContext, useContext, useState, ReactNode } from 'react';

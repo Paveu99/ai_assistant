@@ -1,15 +1,17 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark'
+type Theme = 'light' | 'dark';
 
 export const useToggleTheme = () => {
     const [currentTheme, setCurrentTheme] = useState<Theme | null>(null);
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme') as Theme | null;
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
         const initialTheme = storedTheme || systemTheme;
         setCurrentTheme(initialTheme);
         document.documentElement.dataset.theme = initialTheme;
@@ -26,6 +28,6 @@ export const useToggleTheme = () => {
 
     return {
         currentTheme,
-        toggleTheme
+        toggleTheme,
     };
-}
+};

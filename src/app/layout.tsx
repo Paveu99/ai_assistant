@@ -21,20 +21,16 @@ export const metadata: Metadata = {
     description: 'Application that helps developers work faster and more efficiently',
 };
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" data-theme="light" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+            >
                 <AppRouterCacheProvider>
                     <ThemeProvider>
                         <QueryProvider>
-                            <ClientLayout>
-                                {children}
-                            </ClientLayout>
+                            <ClientLayout>{children}</ClientLayout>
                         </QueryProvider>
                     </ThemeProvider>
                 </AppRouterCacheProvider>
