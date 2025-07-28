@@ -4,8 +4,6 @@ import { ReactNode, useMemo } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { ThemeProvider as MuiThemeProvider, createTheme, PaletteMode } from '@mui/material/styles';
 import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
-import SideBar from '@/components/sideBar/LeftSideBar';
-import Image from 'next/image';
 import { TopBar } from '@/components/topBar/TopBar';
 
 const light = {
