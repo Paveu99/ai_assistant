@@ -1,6 +1,6 @@
 'use client';
 
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, useTheme } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -9,11 +9,11 @@ import { DrawerButton } from '../buttons/DrawerButton';
 
 const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/chat', label: 'Chat' },
-    { href: '/history', label: 'History' },
-    { href: '/tests', label: 'Tests' },
-    { href: '/tools', label: 'Tools' },
-    { href: '/settings', label: 'Settings' },
+    { href: '/explain-code', label: 'Explain Code' },
+    { href: '/refactor-code', label: 'Refactor' },
+    { href: '/generate-tests', label: 'Generate Tests' },
+    { href: '/generate-commit-message', label: 'Commit Message AI' },
+    { href: '/walkthrough', label: 'Walkthrough' },
 ];
 
 type Props = {
@@ -23,6 +23,7 @@ type Props = {
 
 export default function LeftSideBar({ open, setOpen }: Props) {
     const pathname = usePathname();
+    const theme = useTheme();
 
     return (
         <>
@@ -30,10 +31,11 @@ export default function LeftSideBar({ open, setOpen }: Props) {
                 <MenuIcon />
             </DrawerButton>
             <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-                <div className="ml-[15px] mt-[5px]">
+                <div className="flex items-center ml-[15px] mt-[5px]">
                     <DrawerButton onClick={() => setOpen(false)}>
                         <MenuIcon />
                     </DrawerButton>
+                    <h1 className="font-bold text-[18px]">Menu</h1>
                 </div>
                 <div className="w-[250px] h-full flex flex-col justify-between items-center">
                     <List className="w-[220px]">
@@ -44,21 +46,24 @@ export default function LeftSideBar({ open, setOpen }: Props) {
                                 component={Link}
                                 href={href}
                                 sx={{
-                                    border: '1px solid #e0e0e0',
+                                    border: `1px solid ${theme.palette.divider}`,
                                     borderRadius: '12px',
                                     px: 2,
                                     py: 1.5,
                                     mb: 1.5,
                                     transition: 'all 0.2s ease-in-out',
-                                    backgroundColor: pathname === href ? '#bbdefb' : 'transparent',
+                                    backgroundColor:
+                                        pathname === href
+                                            ? theme.palette.secondary.main
+                                            : 'transparent',
                                     transform: pathname === href ? 'scale(1.05)' : 'none',
                                     '&:hover': {
-                                        backgroundColor: '#e3f2fd',
+                                        backgroundColor: theme.palette.action.hover,
                                         transform: 'scale(1.05)',
                                         cursor: 'pointer',
                                     },
                                     textDecoration: 'none',
-                                    color: 'inherit',
+                                    color: theme.palette.text.primary,
                                 }}
                             >
                                 <ListItemText primary={label} />
