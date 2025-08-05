@@ -5,6 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Button, Drawer, FormControlLabel, List, ListItem, Typography } from '@mui/material';
 import { LightDarkSwitch } from '../lightDarkSwitch/LightDarkSwitch';
 import { DrawerButton } from '../buttons/DrawerButton';
+import { LogRegButton } from '../buttons/LogRegButton';
 
 type Props = {
     open: boolean;
@@ -21,20 +22,26 @@ export default function RightSideBar({ open, setOpen }: Props) {
             </DrawerButton>
             <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
                 <div className="w-[250px] h-full flex flex-col justify-between">
-                    <List>
-                        <ListItem>
-                            <FormControlLabel
-                                control={
-                                    <LightDarkSwitch
-                                        sx={{ m: 1 }}
-                                        checked={currentTheme === 'dark'}
-                                        onChange={toggleTheme}
-                                    />
-                                }
-                                label={currentTheme === 'light' ? 'Light' : 'Dark'}
-                            />
-                        </ListItem>
-                    </List>
+                    <div>
+                        <List>
+                            <ListItem>
+                                <FormControlLabel
+                                    control={
+                                        <LightDarkSwitch
+                                            sx={{ m: 1 }}
+                                            checked={currentTheme === 'dark'}
+                                            onChange={toggleTheme}
+                                        />
+                                    }
+                                    label={currentTheme === 'light' ? 'Light' : 'Dark'}
+                                />
+                            </ListItem>
+                        </List>
+                        <div className='flex flex-col items-center'>
+                            <LogRegButton text='Login' href='/login' />
+                            <LogRegButton text='Register' href='/register' />
+                        </div>
+                    </div>
                     <div className="p-4 flex flex-col gap-2">
                         <Button
                             fullWidth
