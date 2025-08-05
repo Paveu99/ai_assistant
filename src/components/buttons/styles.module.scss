@@ -1,4 +1,4 @@
-.buttonIcon {
+@mixin buttonBase {
     box-sizing: border-box;
     background-color: hsla(210, 100%, 56%, 0.5);
     border: none;
@@ -9,7 +9,6 @@
         padding 0.2s ease,
         opacity 0.2s ease;
     cursor: pointer;
-    width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -24,4 +23,16 @@
         opacity: 1;
         transform: scale(1.04);
     }
+}
+
+.buttonIcon {
+    @include buttonBase;
+    width: 40px;
+}
+
+.buttonLogReg {
+    @include buttonBase;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 220px;
 }
