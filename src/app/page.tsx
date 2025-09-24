@@ -45,6 +45,7 @@ export default function HomePage() {
                 backgroundColor: theme.palette.background.default,
                 color: theme.palette.text.primary,
                 py: 8,
+                paddingTop: 1
             }}
         >
             <Container maxWidth="lg">
@@ -80,7 +81,7 @@ export default function HomePage() {
                                         backgroundColor: theme.palette.background.paper,
                                         borderRadius: 4,
                                         p: 4,
-                                        height: '100%',
+                                        height: '95%',
                                         display: 'flex',
                                         flexDirection: 'column',
                                         alignItems: 'center',
