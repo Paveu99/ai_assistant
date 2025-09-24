@@ -83,7 +83,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             <StyledThemeProvider theme={styledTheme}>
                 <GlobalStyle />
                 <TopBar />
-                <main className="pt-16">{children}</main>
+                <main className="pt-16 h-screen">{children}</main>
             </StyledThemeProvider>
         </MuiThemeProvider>
     );
