@@ -7,6 +7,7 @@
 .loginForm {
     margin-top: 60px;
     background-color: #ffffff;
+    border: 2px solid #155dfc;
     border-radius: 16px;
     padding: 40px 30px;
     width: 100%;
@@ -37,8 +38,8 @@
 
     button {
         width: 100%;
-        background-color: #155dfc;
-        color: #fff;
+        background-color: #FFFFFF;
+        color: #155dfc;
         text-transform: uppercase;
         font-weight: 600;
         padding: 10px 0;
@@ -47,8 +48,9 @@
         transition: background-color 0.2s ease, transform 0.1s ease;
 
         &:hover {
-            background-color: #0f4ddf;
+            background-color: #155dfc;
             transform: scale(1.02);
+            color: #ffffff;
         }
     }
 }

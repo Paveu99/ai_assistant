@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import styles from "./style.module.scss"
+import Image from "next/image";
 
 export type LoginType = {
-    login: string;
+    username: string;
     password: string;
 }
 
@@ -21,7 +22,7 @@ export const LoginForm = () => {
     } = useForm<LoginType>({
         mode: "onChange",
         defaultValues: {
-            login: "",
+            username: "",
             password: "",
         },
     });
@@ -33,42 +34,68 @@ export const LoginForm = () => {
     return <div className={styles.loginContainer}>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
             <div>
-                <h2>Login Form</h2>
-                <Input
-                    id="login"
-                    placeholder="Login"
-                    style={{
-                        backgroundColor: 'white',
-                        borderRadius: '5px',
-                        padding: '4px',
-                        width: '300px',
-                        marginTop: '5px'
+                <Image
+                    src="/AI-Assistant-For-Developers-icon.jpg"
+                    alt="AI Assistant Logo"
+                    width={100}
+                    height={50}
+                    className="object-contain my-4 mx-auto rounded-2xl"
+                />
+                <h2>Sign in to AI Assistant for Developers</h2>
+                <TextField
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                    id="username"
+                    label="Username"
+                    size="small"
+                    variant="filled"
+                    slotProps={{
+                        input: {
+                            style: {
+                                backgroundColor: "#f0f0f0",
+                                color: "black",
+                                borderRadius: "5px",
+                                padding: "4px",
+                                width: '300px',
+                            },
+                        },
+                    }}
+                    sx={{
+                        "& .MuiInputLabel-root": { color: "GrayText" }
                     }}
                     type="text"
                     autoComplete="off"
-                    {...register("login", {
-                        required: "Login is required",
+                    {...register("username", {
+                        required: "Username is required",
                         minLength: {
                             value: 8,
-                            message: "Login must be at least 8 characters long",
+                            message: "Username must be at least 8 characters long",
                         },
                     })}
                 />
                 <br />
-                {errors.login && (
-                    <small className="error">{errors.login.message}</small>
-                )}
             </div>
             <div>
-                <Input
+                <TextField
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
                     id="password"
-                    placeholder="Password..."
-                    style={{
-                        backgroundColor: 'white',
-                        borderRadius: '5px',
-                        padding: '4px',
-                        width: '300px',
-                        marginTop: '5px'
+                    label="Password"
+                    size="small"
+                    variant="filled"
+                    slotProps={{
+                        input: {
+                            style: {
+                                backgroundColor: "#f0f0f0",
+                                color: "black",
+                                borderRadius: "5px",
+                                padding: "4px",
+                                width: '300px',
+                            },
+                        },
+                    }}
+                    sx={{
+                        "& .MuiInputLabel-root": { color: "GrayText" }
                     }}
                     type="password"
                     autoComplete="off"
@@ -81,9 +108,6 @@ export const LoginForm = () => {
                     })}
                 />
                 <br />
-                {errors.password && (
-                    <small className="error">{errors.password.message}</small>
-                )}
             </div>
             <div className={styles.loginBtn}>
                 <Button
@@ -91,7 +115,7 @@ export const LoginForm = () => {
                 // disabled={!isValid || isPending}
                 >
                     {/* {isPending ? "Logging in..." : "Log in"} */}
-                    Log in
+                    Sign in
                 </Button>
             </div>
         </form>
