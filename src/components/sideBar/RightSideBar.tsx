@@ -38,7 +38,7 @@ export default function RightSideBar({ open, setOpen }: Props) {
                             </ListItem>
                         </List>
                         <div className='flex flex-col items-center'>
-                            <LogRegButton text='Login' href='/login' />
+                            <LogRegButton text='Sign in' href='/login' />
                             <LogRegButton text='Register' href='/register' />
                         </div>
                     </div>
