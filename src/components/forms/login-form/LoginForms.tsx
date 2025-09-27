@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, TextField } from "@mui/material";
+import { Button, IconButton, InputAdornment, InputLabel, TextField } from "@mui/material";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import styles from "./style.module.scss"
 import Image from "next/image";
 
@@ -14,6 +16,10 @@ export type LoginType = {
 export const LoginForm = () => {
 
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => setShowPassword((prev) => !prev);
+
     const {
         register,
         handleSubmit,
@@ -77,27 +83,13 @@ export const LoginForm = () => {
             </div>
             <div>
                 <TextField
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
                     id="password"
                     label="Password"
-                    size="small"
                     variant="filled"
-                    slotProps={{
-                        input: {
-                            style: {
-                                backgroundColor: "#f0f0f0",
-                                color: "black",
-                                borderRadius: "5px",
-                                padding: "4px",
-                                width: '300px',
-                            },
-                        },
-                    }}
-                    sx={{
-                        "& .MuiInputLabel-root": { color: "GrayText" }
-                    }}
-                    type="password"
+                    size="small"
+                    type={showPassword ? "text" : "password"}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
                     autoComplete="off"
                     {...register("password", {
                         required: "Password is required",
@@ -106,13 +98,41 @@ export const LoginForm = () => {
                             message: "Password must be at least 3 characters long",
                         },
                     })}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position="end" sx={{ mr: 1 }}>
+                                    <IconButton
+                                        aria-label={showPassword ? "hide password" : "show password"}
+                                        onClick={toggleShowPassword}
+                                        edge="end"
+                                        sx={{ color: "dodgerblue" }}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                            style: {
+                                backgroundColor: "#f0f0f0",
+                                color: "black",
+                                borderRadius: "5px",
+                                padding: "4px",
+                                width: "300px"
+                            },
+                        },
+                    }}
+                    sx={{
+                        "& .MuiInputLabel-root": { color: "GrayText" },
+                    }}
                 />
                 <br />
             </div>
             <div className={styles.loginBtn}>
                 <Button
                     type="submit"
-                // disabled={!isValid || isPending}
+                    disabled={!isValid
+                        // || isPending
+                    }
                 >
                     {/* {isPending ? "Logging in..." : "Log in"} */}
                     Sign in
