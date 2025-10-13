@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import styles from './style.module.scss';
 import Image from 'next/image';
 
 export type LoginType = {
-    username: string;
+    email: string;
     password: string;
 };
 
@@ -27,17 +27,40 @@ export const LoginForm = () => {
     } = useForm<LoginType>({
         mode: 'onChange',
         defaultValues: {
-            username: '',
+            email: '',
             password: '',
         },
     });
 
-    const onSubmit = (data: LoginType) => {
+    const onSubmit = async (data: LoginType) => {
         console.log(data);
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setSuccessMessage('Sign in successfull');
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 1000);
+                reset();
+            } else {
+                setSuccessMessage(result.error || 'Something went wrong');
+            }
+        } catch (error) {
+            setSuccessMessage('Server error');
+            console.log(error);
+        }
     };
 
     return (
         <div className={styles.loginContainer}>
+            {successMessage}
             <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
                 <div>
                     <Image
@@ -49,10 +72,10 @@ export const LoginForm = () => {
                     />
                     <h2>Sign in to AI Assistant for Developers</h2>
                     <TextField
-                        error={!!errors.username}
-                        helperText={errors.username?.message}
-                        id="username"
-                        label="Username"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        id="email"
+                        label="Email"
                         size="small"
                         variant="filled"
                         slotProps={{
@@ -71,8 +94,8 @@ export const LoginForm = () => {
                         }}
                         type="text"
                         autoComplete="off"
-                        {...register('username', {
-                            required: 'Username is required',
+                        {...register('email', {
+                            required: 'Email is required',
                             minLength: {
                                 value: 8,
                                 message: 'Username must be at least 8 characters long',
