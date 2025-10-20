@@ -6,6 +6,7 @@
 
 .registerForm {
     margin-top: 60px;
+    margin-bottom: 30px;
     background-color: #ffffff;
     border: 2px solid #155dfc;
     border-radius: 16px;
@@ -38,14 +39,16 @@
 
     button {
         width: 100%;
-        background-color: #FFFFFF;
+        background-color: #ffffff;
         color: #155dfc;
         text-transform: uppercase;
         font-weight: 600;
         padding: 10px 0;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(21, 93, 252, 0.3);
-        transition: background-color 0.2s ease, transform 0.1s ease;
+        transition:
+            background-color 0.2s ease,
+            transform 0.1s ease;
 
         &:hover {
             background-color: #155dfc;
