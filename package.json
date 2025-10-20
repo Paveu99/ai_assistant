@@ -45,6 +45,7 @@
         "sass": "^1.89.2",
         "sass-embedded": "^1.89.2",
         "tailwindcss": "^4",
-        "typescript": "^5"
+        "typescript": "^5",
+        "zustand": "^5.0.8"
     }
 }
