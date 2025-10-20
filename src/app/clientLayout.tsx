@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, useMemo } from 'react';
-// import { useTheme } from '@/context/ThemeContext';
 import { ThemeProvider as MuiThemeProvider, createTheme, PaletteMode } from '@mui/material/styles';
 import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
 import { TopBar } from '@/components/topBar/TopBar';
@@ -72,7 +71,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
-    // const { currentTheme } = useTheme();
     const { currentTheme } = useThemeStore(
         useShallow(state => ({
             currentTheme: state.currentTheme,
