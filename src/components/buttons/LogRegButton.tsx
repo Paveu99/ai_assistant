@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 import { Button } from '@mui/material';
 import Link from 'next/link';
@@ -17,7 +16,7 @@ export const LogRegButton = ({ text, href, onClick }: Props) => {
             variant="outlined"
             component={Link}
             sx={{
-                marginBottom: "5px"
+                marginBottom: '5px',
             }}
             href={href}
             rel="noopener noreferrer"

@@ -45,7 +45,7 @@ export default function HomePage() {
                 backgroundColor: theme.palette.background.default,
                 color: theme.palette.text.primary,
                 py: 8,
-                paddingTop: 1
+                paddingTop: 1,
             }}
         >
             <Container maxWidth="lg">
