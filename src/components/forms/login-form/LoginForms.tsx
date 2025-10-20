@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import styles from './style.module.scss';
 import Image from 'next/image';
+import { useLoginMutation } from '@/queries/auth/useLoginMutation';
+import { useRouter } from 'next/navigation';
 
 export type LoginType = {
     email: string;
@@ -16,6 +18,8 @@ export type LoginType = {
 export const LoginForm = () => {
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
+    const { mutate, isPending, error, isSuccess } = useLoginMutation();
+    const router = useRouter();
 
     const toggleShowPassword = () => setShowPassword(prev => !prev);
 
@@ -33,34 +37,22 @@ export const LoginForm = () => {
     });
 
     const onSubmit = async (data: LoginType) => {
-        console.log(data);
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                setSuccessMessage('Sign in successfull');
-                setTimeout(() => {
-                    setSuccessMessage(null);
-                }, 1000);
-                reset();
-            } else {
-                setSuccessMessage(result.error || 'Something went wrong');
-            }
-        } catch (error) {
-            setSuccessMessage('Server error');
-            console.log(error);
-        }
+        mutate(data);
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            setSuccessMessage('Successfully logged in!');
+            reset();
+            setTimeout(() => {
+                setSuccessMessage(null);
+                router.push('/');
+            }, 2000);
+        }
+    }, [isSuccess, reset, router]);
 
     return (
         <div className={styles.loginContainer}>
-            {successMessage}
             <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
                 <div>
                     <Image
@@ -153,17 +145,16 @@ export const LoginForm = () => {
                     <br />
                 </div>
                 <div className={styles.loginBtn}>
-                    <Button
-                        type="submit"
-                        disabled={
-                            !isValid
-                            // || isPending
-                        }
-                    >
-                        {/* {isPending ? "Logging in..." : "Log in"} */}
-                        Sign in
+                    <Button type="submit" disabled={!isValid || isPending}>
+                        {isPending ? 'Logging in...' : 'Sign in'}
                     </Button>
                 </div>
+                {error && (
+                    <p className={styles.error}>
+                        {error?.message || 'Login failed. Please try again.'}
+                    </p>
+                )}
+                {successMessage && <p className={styles.success}>{successMessage}</p>}
             </form>
         </div>
     );
