@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProvider } from '@/context/ThemeContext';
 import ClientLayout from './clientLayout';
 import { QueryProvider } from '@/lib/query-providers';
 
@@ -28,11 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
             >
                 <AppRouterCacheProvider>
-                    <ThemeProvider>
-                        <QueryProvider>
-                            <ClientLayout>{children}</ClientLayout>
-                        </QueryProvider>
-                    </ThemeProvider>
+                    <QueryProvider>
+                        <ClientLayout>{children}</ClientLayout>
+                    </QueryProvider>
                 </AppRouterCacheProvider>
             </body>
         </html>
