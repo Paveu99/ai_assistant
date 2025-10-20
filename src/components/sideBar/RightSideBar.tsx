@@ -1,11 +1,12 @@
 'use client';
 
-import { useTheme } from '@/context/ThemeContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Button, Drawer, FormControlLabel, List, ListItem, Typography } from '@mui/material';
 import { LightDarkSwitch } from '../lightDarkSwitch/LightDarkSwitch';
 import { DrawerButton } from '../buttons/DrawerButton';
 import { LogRegButton } from '../buttons/LogRegButton';
+import { useThemeStore } from '@/store/useThemeStore';
+import { useShallow } from 'zustand/shallow';
 
 type Props = {
     open: boolean;
@@ -13,7 +14,10 @@ type Props = {
 };
 
 export default function RightSideBar({ open, setOpen }: Props) {
-    const { currentTheme, toggleTheme } = useTheme();
+    const { currentTheme } = useThemeStore(
+        useShallow(state => ({ currentTheme: state.currentTheme }))
+    );
+    const setTheme = useThemeStore(state => state.setTheme);
 
     return (
         <>
@@ -30,16 +34,28 @@ export default function RightSideBar({ open, setOpen }: Props) {
                                         <LightDarkSwitch
                                             sx={{ m: 1 }}
                                             checked={currentTheme === 'dark'}
-                                            onChange={toggleTheme}
+                                            onChange={() =>
+                                                setTheme(
+                                                    currentTheme === 'light' ? 'dark' : 'light'
+                                                )
+                                            }
                                         />
                                     }
                                     label={currentTheme === 'light' ? 'Light' : 'Dark'}
                                 />
                             </ListItem>
                         </List>
-                        <div className='flex flex-col items-center'>
-                            <LogRegButton text='Sign in' href='/login' />
-                            <LogRegButton text='Register' href='/register' />
+                        <div className="flex flex-col items-center">
+                            <LogRegButton
+                                onClick={() => setOpen(false)}
+                                text="Sign in"
+                                href="/login"
+                            />
+                            <LogRegButton
+                                onClick={() => setOpen(false)}
+                                text="Register"
+                                href="/register"
+                            />
                         </div>
                     </div>
                     <div className="p-4 flex flex-col gap-2">
@@ -51,7 +67,7 @@ export default function RightSideBar({ open, setOpen }: Props) {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Owner's repo
+                            Owner&apos;s repo
                         </Button>
                         <Typography variant="caption" color="textSecondary" align="center">
                             Application is courtesy of Pawel Jarecki. All rights reserved.
